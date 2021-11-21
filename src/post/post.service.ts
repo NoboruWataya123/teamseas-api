@@ -1,26 +1,31 @@
+import { Prisma } from '.prisma/client';
 import { Injectable } from '@nestjs/common';
-import { CreatePostInput } from './dto/create-post.input';
-import { UpdatePostInput } from './dto/update-post.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class PostService {
-  create(createPostInput: CreatePostInput) {
-    return 'This action adds a new post';
+  constructor(private prisma: PrismaService) {}
+  create(createPostInput: Prisma.PostCreateInput) {
+    return this.prisma.post.create({ data: createPostInput });
   }
 
   findAll() {
-    return `This action returns all post`;
+    return this.prisma.post.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  findMany(id: Prisma.PostFindManyArgs['where']['authorId']) {
+    return this.prisma.post.findMany({ where: { authorId: id }});
   }
 
-  update(id: number, updatePostInput: UpdatePostInput) {
-    return `This action updates a #${id} post`;
+  findOne(postUniqueInput: Prisma.PostWhereUniqueInput) {
+    return this.prisma.post.findUnique({ where: postUniqueInput });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  update(postUniqueInput: Prisma.PostWhereUniqueInput, updatePostInput: Prisma.PostUpdateInput) {
+    return this.prisma.post.update({ where: postUniqueInput, data: updatePostInput });
+  }
+
+  remove(postUniqueInput: Prisma.PostWhereUniqueInput) {
+    return this.prisma.post.delete({ where: postUniqueInput });
   }
 }

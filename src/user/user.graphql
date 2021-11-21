@@ -1,19 +1,27 @@
 type User {
-  # Example field (placeholder)
-  exampleField: Int
+  id: Int!
+  name: String!
+  email: String!
+  password: String!
+
+  posts: [Post]
+  comments: [Comment]
 }
 
 input CreateUserInput {
-  # Example field (placeholder)
-  exampleField: Int
+  name: String!
+  email: String!
+  password: String!
 }
 
 input UpdateUserInput {
-  id: Int!
+  name: String
+  email: String
+  password: String
 }
 
 type Query {
-  user: [User]!
+  users: [User]!
   user(id: Int!): User
 }
 

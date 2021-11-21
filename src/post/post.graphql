@@ -1,19 +1,26 @@
 type Post {
-  # Example field (placeholder)
-  exampleField: Int
+  id: Int!
+  title: String!
+  content: String!
+  authorId: Int
+  author: User
+  comments: [Comment]
 }
 
 input CreatePostInput {
-  # Example field (placeholder)
-  exampleField: Int
+  title: String!
+  content: String!
+  authorId: Int
 }
 
 input UpdatePostInput {
   id: Int!
+  title: String
+  content: String
 }
 
 type Query {
-  post: [Post]!
+  posts: [Post]!
   post(id: Int!): Post
 }
 
